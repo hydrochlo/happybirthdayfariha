@@ -582,8 +582,12 @@ button{font-family:inherit}
 
   /*TEST-START*/
   const norm = s => String(s == null ? '' : s).normalize('NFKC').trim().toLowerCase().replace(/\s+/g, ' ').replace(/[.!\s]+$/, '');
-  const ANSWERS = { name: 'mouri', forgive: 'i forgive you for late wish' };
-  const check = (n, f) => ({ name: norm(n) === ANSWERS.name, forgive: norm(f) === ANSWERS.forgive });
+  const ANSWERS = { name: 'mouri', forgive: ['i forgive you for late wish', 'yes'] };
+
+  const check = (n, f) => ({ 
+    name: norm(n) === ANSWERS.name, 
+    forgive: ANSWERS.forgive.includes(norm(f))
+  });
   /*TEST-END*/
 
   const $ = (s, r = document) => r.querySelector(s);
